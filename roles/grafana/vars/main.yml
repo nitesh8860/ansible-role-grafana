@@ -4,3 +4,5 @@ centos:
   grafana_repo_name: grafana
   grafana_repo_description: grafana YUM repository
   grafana_init_file: /etc/sysconfig/grafana-server
+grafana:
+  DATABASE_TYPE: sqlite3

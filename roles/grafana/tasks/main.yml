@@ -6,6 +6,8 @@
     gpgcheck: yes
     repo_gpgcheck: yes
     gpgkey: "{{ centos.grafana_repo_key_url }}"
+  tags:
+    - grafana
 
 - name: Install grafana
   package:
@@ -13,6 +15,8 @@
     state: present
   notify:
     - init grafana service
+  tags:
+    - grafana
 
 - name: install grafana clock plugins
   command: grafana-cli plugins install "{{ item }}"
@@ -22,9 +26,16 @@
   notify:
     - restart grafana service
   tags:
-    - run
+    - grafana
 
-
+- name: configure grafana
+  template:
+    src: grafana.ini
+    dest: /etc/grafana/grafana.ini
+  notify:
+    - restart grafana service
+  tags:
+    - run    
 
 
 

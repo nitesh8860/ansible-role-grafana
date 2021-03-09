@@ -2,12 +2,16 @@
   package:
     name: firewalld
     state: present
+  tags:
+    - firewall
 
 - name: Enable firewalld
   service: 
     name: firewalld
     state: started
     enabled: yes
+  tags:
+    - firewall
 
 - name: Allow grafana port 
   firewalld:
@@ -16,12 +20,16 @@
     state: enabled
   notify: 
     - restart firewalld service    
+  tags:
+    - firewall
 
 - name: set selinux to allow nginx to grafana conn
   seboolean:
     name: httpd_can_network_connect
     state: yes
     persistent: yes
+  tags:
+    - firewall
 
 
 

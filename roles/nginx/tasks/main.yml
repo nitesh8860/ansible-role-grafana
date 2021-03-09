@@ -6,6 +6,8 @@
     gpgcheck: yes
     repo_gpgcheck: yes
     gpgkey: "{{ centos.nginx_repo_key_url }}"
+  tags:
+    - nginx
  
 - name: Install nginx
   package:
@@ -13,6 +15,8 @@
     state: present
   notify:
     - init nginx service
+  tags:
+    - nginx    
 
 - name: configure nginx
   template:
@@ -20,3 +24,5 @@
     dest: /etc/nginx/nginx.conf
   notify:
     - restart nginx service
+  tags:
+    - nginx    
