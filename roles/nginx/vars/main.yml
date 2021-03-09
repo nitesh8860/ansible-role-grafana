@@ -1,0 +1,5 @@
+centos:
+  nginx_repo_url: https://nginx.org/packages/centos/$releasever/$basearch/
+  nginx_repo_name: nginx
+  nginx_repo_description: nginx YUM repository
+  nginx_repo_key_url: https://nginx.org/keys/nginx_signing.key

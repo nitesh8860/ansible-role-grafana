@@ -1,0 +1,22 @@
+- name: Add nginx repository
+  yum_repository:
+    name: "{{ centos.nginx_repo_name }}"
+    description: "{{ centos.nginx_repo_description }}"
+    baseurl: "{{ centos.nginx_repo_url }}"
+    gpgcheck: yes
+    repo_gpgcheck: yes
+    gpgkey: "{{ centos.nginx_repo_key_url }}"
+ 
+- name: Install nginx
+  package:
+    name: "nginx"
+    state: present
+  notify:
+    - init nginx service
+
+- name: configure nginx
+  template:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+  notify:
+    - restart nginx service

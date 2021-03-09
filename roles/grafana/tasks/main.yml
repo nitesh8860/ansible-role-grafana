@@ -1,0 +1,30 @@
+- name: Add Grafana repository
+  yum_repository:
+    name: "{{ centos.grafana_repo_name }}"
+    description: "{{ centos.grafana_repo_description }}"
+    baseurl: "{{ centos.grafana_repo_url }}"
+    gpgcheck: yes
+    repo_gpgcheck: yes
+    gpgkey: "{{ centos.grafana_repo_key_url }}"
+
+- name: Install grafana
+  package:
+    name: grafana
+    state: present
+  notify:
+    - init grafana service
+
+- name: install grafana clock plugins
+  command: grafana-cli plugins install "{{ item }}"
+  loop:
+    - grafana-clock-panel
+    - grafana-piechart-panel
+  notify:
+    - restart grafana service
+  tags:
+    - run
+
+
+
+
+
